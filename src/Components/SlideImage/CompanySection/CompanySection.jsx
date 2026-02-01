@@ -1,54 +1,54 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import img1 from '../../../assets/banner03.jpg';
-import img2 from '../../../assets/banner04.jpg';
-import img4 from '../../../assets/banner02.jpg';
-import img3 from '../../../assets/banner01.jpg';
-import img5 from '../../../assets/ISO.jpg';
-import img6 from '../../../assets/banner_square01.jpg';
-import img7 from '../../../assets/banner_square02.jpg';
-import img8 from '../../../assets/banner_square03.jpg';
-import img9 from '../../../assets/banner_square04.jpg';
-import img10 from '../../../assets/imgp.jpg';
-import img11 from '../../../assets/imgp2.jpg';
-import img12 from '../../../assets/imgp3.jpg';
-import img13 from '../../../assets/imgp4.jpg';
-import img15 from '../../../assets/new ceo.jpg';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import img1 from "../../../assets/banner03.jpg";
+import img2 from "../../../assets/MainImg-CS1JoXJ1.jpg";
+import img4 from "../../../assets/banner02.jpg";
+import img3 from "../../../assets/banner01.jpg";
+import img5 from "../../../assets/ISO.jpg";
+import img6 from "../../../assets/banner_square01.jpg";
+import img7 from "../../../assets/banner_square02.jpg";
+import img8 from "../../../assets/banner_square03.jpg";
+import img9 from "../../../assets/banner_square04.jpg";
+import img10 from "../../../assets/imgp.jpg";
+import img11 from "../../../assets/imgp2.jpg";
+import img12 from "../../../assets/imgp3.jpg";
+import img13 from "../../../assets/imgp4.jpg";
+import img15 from "../../../assets/new ceo.jpg";
 
 const infoCards = [
-  { title: 'CEO', subtitle: 'Greetings', image: img15 },
-  { title: 'Corporate', subtitle: 'Philosophy', image: img2 },
-  { title: 'Patents', subtitle: 'Certificates', image: img3 },
-  { title: 'Award', subtitle: 'Details', image: img4 },
+  { title: "CEO", subtitle: "Greetings", image: img15 },
+  { title: "Corporate", subtitle: "Philosophy", image: img2 },
+  { title: "Patents", subtitle: "Certificates", image: img3 },
+  { title: "Award", subtitle: "Details", image: img4 },
 ];
 
 const categories = [
-  { name: 'Ceramic', image: img6 },
-  { name: 'Thermal', image: img7 },
-  { name: 'Heating cable/Magnetic shielding', image: img8 },
-  { name: 'Low frequency/electric potential', image: img9 },
+  { name: "Ceramic", image: img6 },
+  { name: "Thermal", image: img7 },
+  { name: "Heating cable/Magnetic shielding", image: img8 },
+  { name: "Low frequency/electric potential", image: img9 },
 ];
 
 const products = [
   {
     id: 1,
     image: img10,
-    title: 'HIRANYA - 2000',
-    subtitle: 'Furima Hyranya - 2000',
+    title: "HIRANYA - 2000",
+    subtitle: "Furima Hyranya - 2000",
   },
   {
     id: 2,
     image: img11,
-    title: 'HB - HS1000G',
-    subtitle: 'Sipijangsaeng Gold for 1 ..',
+    title: "HB - HS1000G",
+    subtitle: "Sipijangsaeng Gold for 1 ..",
   },
   {
     id: 3,
     image: img12,
-    title: 'HB - SJG - 13D',
-    subtitle: 'Sipijangsaeng Gold for 2 ..',
+    title: "HB - SJG - 13D",
+    subtitle: "Sipijangsaeng Gold for 2 ..",
   },
-  { id: 4, image: img13, title: '휴리마 - CR1450', subtitle: 'Furima Crown' },
+  { id: 4, image: img13, title: "휴리마 - CR1450", subtitle: "Furima Crown" },
 ];
 
 // Animation Variants
@@ -57,7 +57,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
@@ -76,7 +76,7 @@ const scaleIn = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
@@ -206,10 +206,10 @@ export default function CompanySection() {
         className="relative w-full py-32 px-6 overflow-hidden bg-fixed bg-center bg-cover"
         style={{
           backgroundImage: `url('${img5}')`,
-          backgroundAttachment: 'fixed',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       >
         <div className="absolute inset-0 bg-black/70 z-0"></div>
@@ -247,8 +247,8 @@ export default function CompanySection() {
                 <div
                   className={`w-40 h-40 rounded-full overflow-hidden mb-4 shadow-lg transition-all duration-300 ${
                     activeCategory === idx
-                      ? 'ring-4 ring-blue-600 scale-105'
-                      : 'ring-2 ring-gray-300 hover:ring-gray-400'
+                      ? "ring-4 ring-blue-600 scale-105"
+                      : "ring-2 ring-gray-300 hover:ring-gray-400"
                   }`}
                 >
                   <img
@@ -260,8 +260,8 @@ export default function CompanySection() {
                 <p
                   className={`text-center text-sm md:text-base font-medium transition-colors duration-200 ${
                     activeCategory === idx
-                      ? 'text-gray-800 font-semibold'
-                      : 'text-gray-600 hover:text-gray-800'
+                      ? "text-gray-800 font-semibold"
+                      : "text-gray-600 hover:text-gray-800"
                   }`}
                 >
                   {cat.name}

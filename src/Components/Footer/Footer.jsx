@@ -118,7 +118,7 @@ const Footer = () => {
                 <span className="text-white">HAPPYBIONANO MEDICAL</span>
               </p>
               <p className="text-sm text-gray-400 mb-1">
-                CEO : <span className="text-white">Nam Han Woo</span>
+                CEO : <span className="text-white">KIM</span>
               </p>
               <p className="text-sm text-gray-400 mb-1">
                 address :{" "}
@@ -158,8 +158,10 @@ const Footer = () => {
             </p>
             <p className="text-xs text-gray-500">
               Copyright(c) 2025 by{" "}
-              <span className="text-white font-medium">hanbitnano</span> All
-              Rights Reserved. Designed by hbnano.co.kr
+              <span className="text-white font-medium">
+                HAPPYBIONANO MEDICAL
+              </span>{" "}
+              All Rights Reserved. Designed by hbnano.co.kr
             </p>
           </div>
         </div>

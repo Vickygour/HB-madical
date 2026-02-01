@@ -83,6 +83,23 @@ const ContactUs = () => {
             <p className="text-gray-500 text-xs">Gyeonggi-do, South Korea</p>
           </div>
 
+          {/* Address */}
+          <div className="bg-white border border-gray-200 p-6 text-center hover:shadow-lg transition-shadow duration-300">
+            <div className="flex justify-center mb-4">
+              <MapPin className="text-blue-600 w-10 h-10" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              Address
+            </h3>
+            <p className="text-gray-600 text-sm mb-1">
+              India: 787/2 2nd Floor,
+            </p>
+            <p className="text-gray-500 text-xs">
+              {" "}
+              Sant Nagar, Delhi - 110084.
+            </p>
+          </div>
+
           {/* Business Hours */}
           <div className="bg-white border border-gray-200 p-6 text-center hover:shadow-lg transition-shadow duration-300">
             <div className="flex justify-center mb-4">
@@ -232,7 +249,7 @@ const ContactUs = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg mb-1">CEO</h3>
-                  <p className="text-gray-300">Nam Han Woo</p>
+                  <p className="text-gray-300">KIM</p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg mb-1">
@@ -245,6 +262,10 @@ const ContactUs = () => {
                   <p className="text-gray-300">
                     Korea : 2F, 101, Gaejwa-ro, Geumjeong-gu, Busan, Korea
                   </p>
+                  <h3 className="font-semibold text-lg mb-1">Address</h3>
+                  <p className="text-gray-300">
+                    India : 787/2 2nd Floor, Sant Nagar, Delhi - 110084
+                  </p>
                 </div>
               </div>
             </div>
@@ -252,7 +273,7 @@ const ContactUs = () => {
             {/* Google Map */}
             <div className="w-full h-96 shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.5453165634344!2d127.0276184!3d37.4979518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca15f4a1f3b0d%3A0x4a7d9f1e0e0e0e0e!2s368%20Buil-ro%2C%20Bucheon-si%2C%20Gyeonggi-do%2C%20South%20Korea!5e0!3m2!1sen!2s!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.1234!2d129.110287!3d35.215556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3568930499e4b9db%3A0x67a06416181b5e58!2s101%20Gaejwa-ro%2C%20Geumjeong-gu%2C%20Busan%2C%20South%20Korea!5e0!3m2!1sen!2s!4v1700000000000"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
