@@ -1,54 +1,77 @@
-import { useState } from 'react';
-
-const footerMenus = {
-  'Co introduction': [
-    'Greetings',
-    'Corporate philosophy',
-    'History',
-    'Patents/Certificates',
-    'Award details',
-    'How to find us',
-  ],
-  Technology: [
-    'Ceramic',
-    'Thermal',
-    'Heating/Magnetic shielding',
-    'Low frequency/electric potential',
-  ],
-  'Product info': [
-    'Personal combination stimulator',
-    'Personal thermal device',
-    'Functional health food',
-  ],
-  Contact: [],
-};
+import { useState } from "react";
+import { Link } from "react-router-dom"; // Link import kiya
 
 const Footer = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
+
+  // Is object ko mapping ke liye define kiya taaki routing IDs sahi rahein
+  const footerMenus = {
+    "Co introduction": {
+      path: "/CompanyIntro",
+      items: [
+        { id: "greetings", label: "Greetings" },
+        { id: "corporate", label: "Corporate philosophy" },
+        { id: "history", label: "History" },
+        { id: "patents", label: "Patents/Certificates" },
+        { id: "award", label: "Award details" },
+        { id: "howtofind", label: "How to find us" },
+      ],
+    },
+    Technology: {
+      path: "/Technology",
+      items: [
+        { id: "ceramic", label: "Ceramic" },
+        { id: "thermal", label: "Thermal" },
+        { id: "heating", label: "Heating/Magnetic shielding" },
+        { id: "lowfreq", label: "Low frequency/electric potential" },
+      ],
+    },
+    "Product info": {
+      path: "/ProductInfo",
+      items: [
+        { id: "personal-combo", label: "Personal combination stimulator" },
+        { id: "thermal-device", label: "Personal thermal device" },
+        { id: "health-food", label: "Functional health food" },
+      ],
+    },
+    Contact: {
+      path: "/contactUs",
+      items: [],
+    },
+  };
 
   return (
     <footer className="bg-[#2b2b2b] text-white">
       {/* Top Navigation Menu */}
       <div className="bg-[#333333] py-8 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          {Object.entries(footerMenus).map(([category, items]) => (
+          {Object.entries(footerMenus).map(([category, data]) => (
             <div key={category}>
-              <h3 className="text-lg font-semibold mb-2 text-white">
-                {category}
-              </h3>
+              {/* Category Header with Link */}
+              <Link to={data.path}>
+                <h3 className="text-lg font-semibold mb-2 text-white hover:text-orange-500 transition-colors">
+                  {category}
+                </h3>
+              </Link>
               <ul className="space-y-2">
-                {items.map((item, idx) => (
+                {data.items.map((item, idx) => (
                   <li
                     key={idx}
                     onMouseEnter={() => setHoveredItem(`${category}-${idx}`)}
                     onMouseLeave={() => setHoveredItem(null)}
-                    className={`text-sm cursor-pointer transition-all duration-200  rounded ${
+                    className={`text-sm cursor-pointer transition-all duration-200 rounded ${
                       hoveredItem === `${category}-${idx}`
-                        ? 'text-orange-500 bg-gray-700'
-                        : 'text-gray-400 hover:text-gray-200'
+                        ? "text-orange-500 bg-gray-700"
+                        : "text-gray-400 hover:text-gray-200"
                     }`}
                   >
-                    {item}
+                    {/* Yahan Link component use kiya hai queries ke saath */}
+                    <Link
+                      to={`${data.path}?tab=${item.id}`}
+                      className="block w-full h-full"
+                    >
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -60,7 +83,7 @@ const Footer = () => {
       {/* Google Map Section */}
       <div className="w-full h-50 md:h-50">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.5453165634344!2d127.0276184!3d37.4979518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca15f4a1f3b0d%3A0x4a7d9f1e0e0e0e0e!2sSeoul%2C%20South%20Korea!5e0!3m2!1sen!2s!4v1234567890"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.123!2d126.8123!3d37.4856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDI5JzA4LjIiTiAxMjbCsDQ4JzQ0LjMiRQ!5e0!3m2!1sen!2skr!4v1625000000000!5m2!1sen!2skr"
           width="100%"
           height="100%"
           style={{ border: 0 }}
@@ -77,12 +100,12 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between gap-8 mb-6">
             {/* Home Link */}
             <div>
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="text-lg font-medium text-white hover:text-gray-300 transition-colors"
               >
                 Home
-              </a>
+              </Link>
             </div>
 
             {/* Information */}
@@ -91,16 +114,16 @@ const Footer = () => {
                 INFORMATION
               </h4>
               <p className="text-sm text-gray-400 mb-1">
-                company name :{' '}
-                <span className="text-white">hanbitnano medical</span>
+                company name :{" "}
+                <span className="text-white">HAPPYBIONANO MEDICAL</span>
               </p>
               <p className="text-sm text-gray-400 mb-1">
                 CEO : <span className="text-white">Nam Han Woo</span>
               </p>
               <p className="text-sm text-gray-400 mb-1">
-                address :{' '}
+                address :{" "}
                 <span className="text-white">
-                  368, Buil-ro, Bucheon-si, Gyeonggi-do, Republic of Korea
+                  Korea : 2F, 101, Gaejwa-ro, Geumjeong-gu, Busan, Korea
                 </span>
               </p>
               <p className="text-sm text-gray-400">
@@ -112,7 +135,7 @@ const Footer = () => {
             <div className="flex-1">
               <h4 className="text-base font-bold mb-2 text-white">LICENCE</h4>
               <p className="text-sm text-gray-400">
-                corporate registration number :{' '}
+                corporate registration number :{" "}
                 <span className="text-white">123-81-92457</span>
               </p>
             </div>
@@ -134,7 +157,7 @@ const Footer = () => {
               Unauthorized copying and resale of all contents is prohibited.
             </p>
             <p className="text-xs text-gray-500">
-              Copyright(c) 2025 by{' '}
+              Copyright(c) 2025 by{" "}
               <span className="text-white font-medium">hanbitnano</span> All
               Rights Reserved. Designed by hbnano.co.kr
             </p>

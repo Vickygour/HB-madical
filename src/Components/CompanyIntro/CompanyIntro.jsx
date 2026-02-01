@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useSearchParams } from 'react-router-dom';
-import img4 from '../../assets/new ceo.jpg';
-import img5 from '../../assets/banner04.jpg';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
+import img4 from "../../assets/new ceo.jpg";
+import img5 from "../../assets/MainImg-CS1JoXJ1.jpg";
 
 const tabs = [
-  { id: 'greetings', label: 'Greetings' },
-  { id: 'corporate', label: 'Corporate philosophy' },
-  { id: 'history', label: 'History' },
-  { id: 'patents', label: 'Patents/certificates' },
-  { id: 'award', label: 'Award details' },
-  { id: 'howtofind', label: 'How to find us' },
+  { id: "greetings", label: "Greetings" },
+  { id: "corporate", label: "Corporate philosophy" },
+  { id: "history", label: "History" },
+  { id: "patents", label: "Patents/certificates" },
+  { id: "award", label: "Award details" },
+  { id: "howtofind", label: "How to find us" },
 ];
 
 // Animation Variants
@@ -19,7 +19,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
@@ -38,14 +38,14 @@ const scaleIn = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
 const CompanyIntro = () => {
   const [searchParams] = useSearchParams();
-  const tabFromUrl = searchParams.get('tab');
-  const [activeTab, setActiveTab] = useState(tabFromUrl || 'greetings');
+  const tabFromUrl = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState(tabFromUrl || "greetings");
 
   useEffect(() => {
     if (tabFromUrl) {
@@ -55,7 +55,7 @@ const CompanyIntro = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'greetings':
+      case "greetings":
         return (
           <motion.div
             key="greetings"
@@ -115,7 +115,7 @@ const CompanyIntro = () => {
           </motion.div>
         );
 
-      case 'corporate':
+      case "corporate":
         return (
           <motion.div
             key="corporate"
@@ -192,16 +192,16 @@ const CompanyIntro = () => {
               >
                 {[
                   {
-                    title: 'Respect for human beings',
-                    text: 'We are implementing a personnel management policy to enable all members of Hanbit to fully demonstrate their respective capabilities and creativity, upholding respect for humans as the foremost value in order for all our customers to restore their health and enjoy happiness in life.',
+                    title: "Respect for human beings",
+                    text: "We are implementing a personnel management policy to enable all members of Hanbit to fully demonstrate their respective capabilities and creativity, upholding respect for humans as the foremost value in order for all our customers to restore their health and enjoy happiness in life.",
                   },
                   {
-                    title: 'Customer Satisfaction',
-                    text: 'We shall fulfill our corporate obligations by placing the utmost priority on customer satisfaction from the viewpoints of our customers.',
+                    title: "Customer Satisfaction",
+                    text: "We shall fulfill our corporate obligations by placing the utmost priority on customer satisfaction from the viewpoints of our customers.",
                   },
                   {
-                    title: 'Quality First',
-                    text: 'We will make efforts to manufacture products that come ever-closer to perfection, rather than merely striving to sell more products.',
+                    title: "Quality First",
+                    text: "We will make efforts to manufacture products that come ever-closer to perfection, rather than merely striving to sell more products.",
                   },
                 ].map((item, idx) => (
                   <motion.div key={idx} variants={scaleIn}>
@@ -230,16 +230,16 @@ const CompanyIntro = () => {
               >
                 {[
                   {
-                    color: 'border-blue-600 text-blue-600',
-                    text: 'Manufacturing\nthe best products through\napplication of new future\ntechnologies',
+                    color: "border-blue-600 text-blue-600",
+                    text: "Manufacturing\nthe best products through\napplication of new future\ntechnologies",
                   },
                   {
-                    color: 'border-green-600 text-green-600',
-                    text: 'A company\nthat grows while\nsetting trends in\nmedical devices',
+                    color: "border-green-600 text-green-600",
+                    text: "A company\nthat grows while\nsetting trends in\nmedical devices",
                   },
                   {
-                    color: 'border-orange-400 text-orange-500',
-                    text: 'Services\nthat offer greater\nlife value',
+                    color: "border-orange-400 text-orange-500",
+                    text: "Services\nthat offer greater\nlife value",
                   },
                 ].map((circle, idx) => (
                   <motion.div
@@ -252,7 +252,7 @@ const CompanyIntro = () => {
                     >
                       <p
                         className={`text-center ${circle.color} font-medium px-6 md:px-8 text-sm md:text-base leading-relaxed`}
-                        style={{ whiteSpace: 'pre-line' }}
+                        style={{ whiteSpace: "pre-line" }}
                       >
                         {circle.text}
                       </p>
@@ -264,8 +264,8 @@ const CompanyIntro = () => {
           </motion.div>
         );
 
-      case 'history':
-      case 'award':
+      case "history":
+      case "award":
         return (
           <motion.div
             key={activeTab}
@@ -275,7 +275,7 @@ const CompanyIntro = () => {
             className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 md:mb-8">
-              {activeTab === 'history' ? 'HISTORY' : 'AWARDS DETAILS'}
+              {activeTab === "history" ? "HISTORY" : "AWARDS DETAILS"}
             </h2>
             <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-8 md:mb-12">
               We are ceaselessly pursuing research and development in order to
@@ -289,7 +289,7 @@ const CompanyIntro = () => {
                 variants={staggerContainer}
                 className="space-y-6 md:space-y-10"
               >
-                {['2019', '2018', '2016', '2015', '2014', '2013'].map(
+                {["2019", "2018", "2016", "2015", "2014", "2013"].map(
                   (year) => (
                     <motion.div
                       key={year}
@@ -327,7 +327,7 @@ const CompanyIntro = () => {
           </motion.div>
         );
 
-      case 'patents':
+      case "patents":
         return (
           <motion.div
             key="patents"
@@ -369,7 +369,7 @@ const CompanyIntro = () => {
           </motion.div>
         );
 
-      case 'howtofind':
+      case "howtofind":
         return (
           <motion.div
             key="howtofind"
@@ -403,13 +403,13 @@ const CompanyIntro = () => {
                 className="space-y-4 md:space-y-6"
               >
                 {[
-                  { title: 'COMPANY NAME', text: 'HANBITNANO MEDICAL' },
+                  { title: "COMPANY NAME", text: "HAPPYBIONANO MEDICAL" },
                   {
-                    title: 'ADDRESS',
-                    text: '368, Buil-ro, Bucheon-si, Gyeonggi-do, Republic of Korea',
+                    title: "ADDRESS",
+                    text: "Korea : 2F, 101, Gaejwa-ro, Geumjeong-gu, Busan, Korea",
                   },
-                  { title: 'PARKING', text: 'Use of public parking lots' },
-                  { title: 'BUSINESS', text: 'Am:09 ~ Pm:06' },
+                  { title: "PARKING", text: "Use of public parking lots" },
+                  { title: "BUSINESS", text: "Am:09 ~ Pm:06" },
                 ].map((info, idx) => (
                   <motion.div key={idx} variants={scaleIn}>
                     <div className="bg-gray-800 text-white py-2 md:py-3 px-3 md:px-4 mb-2">
@@ -444,7 +444,7 @@ const CompanyIntro = () => {
       >
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
-            COMPANY{' '}
+            COMPANY{" "}
             <span className="text-base md:text-lg font-normal text-gray-600">
               INTRODUCE
             </span>
@@ -460,8 +460,8 @@ const CompanyIntro = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 md:px-8 py-3 md:py-4 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
               {tab.label}
