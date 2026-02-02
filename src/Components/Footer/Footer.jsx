@@ -115,7 +115,7 @@ const Footer = () => {
               </h4>
               <p className="text-sm text-gray-400 mb-1">
                 company name :{" "}
-                <span className="text-white">HAPPYBIONANO MEDICAL</span>
+                <span className="text-white">HAPPY BIO NANO MEDICAL</span>
               </p>
               <p className="text-sm text-gray-400 mb-1">
                 CEO : <span className="text-white">KIM</span>
@@ -159,7 +159,7 @@ const Footer = () => {
             <p className="text-xs text-gray-500">
               Copyright(c) 2025 by{" "}
               <span className="text-white font-medium">
-                HAPPYBIONANO MEDICAL
+                HAPPY BIO NANO MEDICAL
               </span>{" "}
               All Rights Reserved. Designed by hbnano.co.kr
             </p>

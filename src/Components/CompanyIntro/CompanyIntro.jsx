@@ -1,8 +1,78 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import img4 from "../../assets/new ceo.jpg";
 import img5 from "../../assets/MainImg-CS1JoXJ1.jpg";
+
+// Import certificates
+import cert1 from "../../assets/Certificate/certificate1.jpg";
+import cert2 from "../../assets/Certificate/certificate2.jpg";
+import cert3 from "../../assets/Certificate/certificate3.jpg";
+import cert4 from "../../assets/Certificate/certificate4.jpg";
+import cert5 from "../../assets/Certificate/certificate5.jpg";
+import cert6 from "../../assets/Certificate/certificate6.jpg";
+import cert7 from "../../assets/Certificate/certificate7.jpg";
+import cert8 from "../../assets/Certificate/certificate8.jpg";
+import cert9 from "../../assets/Certificate/certificate9.jpg";
+import cert10 from "../../assets/Certificate/certificate10.jpg";
+import cert11 from "../../assets/Certificate/certificate11.jpg";
+import cert12 from "../../assets/Certificate/certificate12.jpg";
+import cert13 from "../../assets/Certificate/certificate13.jpg";
+import cert14 from "../../assets/Certificate/certificate14.jpg";
+import cert15 from "../../assets/Certificate/certificate15.jpg";
+import cert16 from "../../assets/Certificate/certificate16.jpg";
+import cert17 from "../../assets/Certificate/certificate17.jpg";
+import cert18 from "../../assets/Certificate/certificate18.jpg";
+import cert19 from "../../assets/Certificate/certificate19.jpg";
+import cert20 from "../../assets/Certificate/certificate20.jpg";
+import cert21 from "../../assets/Certificate/certificate21.jpg";
+import cert22 from "../../assets/Certificate/certificate22.jpg";
+import cert23 from "../../assets/Certificate/certificate23.jpg";
+import cert24 from "../../assets/Certificate/certificate24.jpg";
+import cert25 from "../../assets/Certificate/certificate25.jpg";
+import cert26 from "../../assets/Certificate/certificate26.jpg";
+import cert27 from "../../assets/Certificate/certificate27.jpg";
+import cert28 from "../../assets/Certificate/certificate28.jpg";
+import cert29 from "../../assets/Certificate/certificate29.jpg";
+import cert30 from "../../assets/Certificate/certificate30.jpg";
+import cert31 from "../../assets/Certificate/certificate31.jpg";
+
+const certificates = [
+  { id: 1, image: cert1, title: "Certificate 1" },
+  { id: 2, image: cert2, title: "Certificate 2" },
+  { id: 3, image: cert3, title: "Certificate 3" },
+  { id: 4, image: cert4, title: "Certificate 4" },
+  { id: 5, image: cert5, title: "Certificate 5" },
+  { id: 6, image: cert6, title: "Certificate 6" },
+  { id: 7, image: cert7, title: "Certificate 7" },
+  { id: 8, image: cert8, title: "Certificate 8" },
+  { id: 9, image: cert9, title: "Certificate 9" },
+  { id: 10, image: cert10, title: "Certificate 10" },
+  { id: 11, image: cert11, title: "Certificate 11" },
+  { id: 12, image: cert12, title: "Certificate 12" },
+  { id: 13, image: cert13, title: "Certificate 13" },
+  { id: 14, image: cert14, title: "Certificate 14" },
+  { id: 15, image: cert15, title: "Certificate 15" },
+  { id: 16, image: cert16, title: "Certificate 16" },
+  { id: 17, image: cert17, title: "Certificate 17" },
+  { id: 18, image: cert18, title: "Certificate 18" },
+  { id: 19, image: cert19, title: "Certificate 19" },
+  { id: 20, image: cert20, title: "Certificate 20" },
+  { id: 21, image: cert21, title: "Certificate 21" },
+  { id: 22, image: cert22, title: "Certificate 22" },
+  { id: 23, image: cert23, title: "Certificate 23" },
+  { id: 24, image: cert24, title: "Certificate 24" },
+  { id: 25, image: cert25, title: "Certificate 25" },
+  { id: 26, image: cert26, title: "Certificate 26" },
+  { id: 27, image: cert27, title: "Certificate 27" },
+  { id: 28, image: cert28, title: "Certificate 28" },
+  { id: 29, image: cert29, title: "Certificate 29" },
+  { id: 30, image: cert30, title: "Certificate 30" },
+  { id: 31, image: cert31, title: "Certificate 31" },
+];
+
+const CERTIFICATES_PER_PAGE = 10;
 
 const tabs = [
   { id: "greetings", label: "Greetings" },
@@ -46,6 +116,8 @@ const CompanyIntro = () => {
   const [searchParams] = useSearchParams();
   const tabFromUrl = searchParams.get("tab");
   const [activeTab, setActiveTab] = useState(tabFromUrl || "greetings");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCert, setSelectedCert] = useState(null);
 
   useEffect(() => {
     if (tabFromUrl) {
@@ -328,45 +400,157 @@ const CompanyIntro = () => {
         );
 
       case "patents":
+        const totalPages = Math.ceil(
+          certificates.length / CERTIFICATES_PER_PAGE,
+        );
+        const startIndex = (currentPage - 1) * CERTIFICATES_PER_PAGE;
+        const endIndex = startIndex + CERTIFICATES_PER_PAGE;
+        const currentCertificates = certificates.slice(startIndex, endIndex);
+
+        const handlePrevPage = () => {
+          setCurrentPage((prev) => Math.max(prev - 1, 1));
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+        const handleNextPage = () => {
+          setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
         return (
-          <motion.div
-            key="patents"
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-            className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 md:mb-12">
-              PATENTS/CERTIFICATES
-            </h2>
+          <>
             <motion.div
+              key="patents"
               initial="hidden"
               animate="visible"
-              variants={staggerContainer}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+              variants={fadeInUp}
+              className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12"
             >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((cert) => (
-                <motion.div
-                  key={cert}
-                  variants={scaleIn}
-                  className="bg-white shadow-lg rounded-none overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 md:mb-12 text-center">
+                PATENTS/CERTIFICATES
+              </h2>
+
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer}
+                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"
+              >
+                {currentCertificates.map((cert) => (
+                  <motion.div
+                    key={cert.id}
+                    variants={scaleIn}
+                    className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+                    onClick={() => setSelectedCert(cert)}
+                  >
+                    <div className="w-full aspect-[3/4] bg-gray-100 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={cert.image}
+                        alt={cert.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-3 md:p-4 text-center">
+                      <p className="text-gray-700 text-xs md:text-sm font-medium">
+                        {cert.title}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Pagination */}
+              <div className="flex items-center justify-center gap-4 mt-8 md:mt-12">
+                <button
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1}
+                  className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors"
                 >
-                  <div className="w-full h-64 md:h-80 bg-gray-100 flex items-center justify-center overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400"
-                      alt={`Certificate ${cert}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-4 md:p-6 text-center">
-                    <p className="text-gray-700 text-sm md:text-base font-medium">
-                      Certificate {cert}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                  <ChevronLeft size={20} />
+                  <span className="hidden sm:inline">Previous</span>
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        onClick={() => {
+                          setCurrentPage(page);
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                        className={`w-8 h-8 md:w-10 md:h-10 rounded-lg font-semibold transition-colors ${
+                          currentPage === page
+                            ? "bg-gray-800 text-white"
+                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    ),
+                  )}
+                </div>
+
+                <button
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                  className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors"
+                >
+                  <span className="hidden sm:inline">Next</span>
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+
+              <p className="text-center text-gray-600 mt-4 text-sm">
+                Showing {startIndex + 1} -{" "}
+                {Math.min(endIndex, certificates.length)} of{" "}
+                {certificates.length} certificates
+              </p>
             </motion.div>
-          </motion.div>
+
+            {/* Modal for enlarged certificate view */}
+            <AnimatePresence>
+              {selectedCert && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+                  onClick={() => setSelectedCert(null)}
+                >
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    className="relative max-w-4xl w-full bg-white rounded-lg overflow-hidden"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      onClick={() => setSelectedCert(null)}
+                      className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition-colors"
+                    >
+                      <X size={24} className="text-gray-800" />
+                    </button>
+
+                    <div className="w-full max-h-[85vh] overflow-auto">
+                      <img
+                        src={selectedCert.image}
+                        alt={selectedCert.title}
+                        className="w-full h-auto"
+                      />
+                    </div>
+
+                    <div className="p-4 md:p-6 bg-gray-50 border-t">
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-800 text-center">
+                        {selectedCert.title}
+                      </h3>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
         );
 
       case "howtofind":
@@ -385,7 +569,7 @@ const CompanyIntro = () => {
               <motion.div variants={scaleIn} className="md:col-span-2">
                 <div className="w-full h-64 md:h-96 lg:h-[500px] shadow-lg">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.5453165634344!2d127.0276184!3d37.4979518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca15f4a1f3b0d%3A0x4a7d9f1e0e0e0e0e!2s368%20Buil-ro%2C%20Bucheon-si%2C%20Gyeonggi-do%2C%20South%20Korea!5e0!3m2!1sen!2s!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.1234!2d129.110287!3d35.215556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3568930499e4b9db%3A0x67a06416181b5e58!2s101%20Gaejwa-ro%2C%20Geumjeong-gu%2C%20Busan%2C%20South%20Korea!5e0!3m2!1sen!2s!4v1700000000000"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -403,7 +587,7 @@ const CompanyIntro = () => {
                 className="space-y-4 md:space-y-6"
               >
                 {[
-                  { title: "COMPANY NAME", text: "HAPPYBIONANO MEDICAL" },
+                  { title: "COMPANY NAME", text: "HAPPY BIO NANO MEDICAL" },
                   {
                     title: "ADDRESS",
                     text: "Korea : 2F, 101, Gaejwa-ro, Geumjeong-gu, Busan, Korea",

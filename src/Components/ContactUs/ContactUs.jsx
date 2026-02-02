@@ -245,7 +245,7 @@ const ContactUs = () => {
               <div className="space-y-4">
                 <div>
                   <h3 className="font-semibold text-lg mb-1">Company Name</h3>
-                  <p className="text-gray-300">HAPPYBIONANO MEDICAL</p>
+                  <p className="text-gray-300">HAPPY BIO NANO MEDICAL</p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg mb-1">CEO</h3>
