@@ -590,7 +590,7 @@ const CompanyIntro = () => {
                   { title: "COMPANY NAME", text: "HAPPY BIO NANO MEDICAL" },
                   {
                     title: "ADDRESS",
-                    text: "Korea : 2F, 101, Gaejwa-ro, Geumjeong-gu, Busan, Korea",
+                    text: "Korea :2F, 101, Gaejwa-ro, Geumjeong-gu, Busan Korea  India : 787/2 2nd Floor, Sant Nagar, Delhi - 110084",
                   },
                   { title: "PARKING", text: "Use of public parking lots" },
                   { title: "BUSINESS", text: "Am:09 ~ Pm:06" },

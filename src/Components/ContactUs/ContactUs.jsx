@@ -251,12 +251,12 @@ const ContactUs = () => {
                   <h3 className="font-semibold text-lg mb-1">CEO</h3>
                   <p className="text-gray-300">KIM</p>
                 </div>
-                <div>
+                {/* <div>
                   <h3 className="font-semibold text-lg mb-1">
                     Registration Number
                   </h3>
                   <p className="text-gray-300">123-81-92457</p>
-                </div>
+                </div> */}
                 <div>
                   <h3 className="font-semibold text-lg mb-1">Address</h3>
                   <p className="text-gray-300">

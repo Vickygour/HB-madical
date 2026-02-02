@@ -134,10 +134,10 @@ const Footer = () => {
             {/* Licence */}
             <div className="flex-1">
               <h4 className="text-base font-bold mb-2 text-white">LICENCE</h4>
-              <p className="text-sm text-gray-400">
+              {/* <p className="text-sm text-gray-400">
                 corporate registration number :{" "}
                 <span className="text-white">123-81-92457</span>
-              </p>
+              </p> */}
             </div>
 
             {/* Web Master */}
