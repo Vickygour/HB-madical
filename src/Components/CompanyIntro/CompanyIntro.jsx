@@ -125,6 +125,19 @@ const CompanyIntro = () => {
     }
   }, [tabFromUrl]);
 
+  // Pagination functions
+  const totalPages = Math.ceil(certificates.length / CERTIFICATES_PER_PAGE);
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case "greetings":
@@ -400,22 +413,9 @@ const CompanyIntro = () => {
         );
 
       case "patents":
-        const totalPages = Math.ceil(
-          certificates.length / CERTIFICATES_PER_PAGE,
-        );
         const startIndex = (currentPage - 1) * CERTIFICATES_PER_PAGE;
         const endIndex = startIndex + CERTIFICATES_PER_PAGE;
         const currentCertificates = certificates.slice(startIndex, endIndex);
-
-        const handlePrevPage = () => {
-          setCurrentPage((prev) => Math.max(prev - 1, 1));
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        };
-
-        const handleNextPage = () => {
-          setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        };
 
         return (
           <>
