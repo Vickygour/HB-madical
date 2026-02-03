@@ -109,13 +109,17 @@ const products = [
     image: img8,
 
     attachments: [
-      { id: 9, image: img9, name: "hB FURIMA CROWN", model: "휴리마 - CR1450" },
+      { id: 9, image: img9, name: "TENS HANDLE", model: "MODEL NO.: 9000A" },
 
-      { id: 10, image: img10, name: "Furima Crown", model: "휴리마 - CR1450" },
+      {
+        id: 10,
+        image: img10,
+        name: "LEASER THERAPY",
+        model: "MODEL NO.: 9000A",
+      },
 
-      { id: 11, image: img11, name: "Furima Crown", model: "휴리마 - CR1450" },
-
-      { id: 12, image: img12, name: "Furima Crown", model: "휴리마 - CR1450" },
+      { id: 11, image: img11, name: "FOOT TENS", model: "MODEL NO.: 9000A" },
+      { id: 12, image: img12, name: "TENS BELT", model: "MODEL NO.: 9000A" },
     ],
   },
 
