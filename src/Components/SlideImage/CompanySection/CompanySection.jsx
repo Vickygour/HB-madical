@@ -9,10 +9,10 @@ import img6 from "../../../assets/banner_square01.jpg";
 import img7 from "../../../assets/banner_square02.jpg";
 import img8 from "../../../assets/banner_square03.jpg";
 import img9 from "../../../assets/banner_square04.jpg";
-import img10 from "../../../assets/imgp.jpg";
-import img11 from "../../../assets/imgp2.jpg";
-import img12 from "../../../assets/imgp3.jpg";
-import img13 from "../../../assets/imgp4.jpg";
+import img10 from "../../../assets/Product2-DhjdOj4Q.jpg";
+import img11 from "../../../assets/Product3-CSZBqCjC.jpg";
+import img12 from "../../../assets/Product5-tD8NLp4R.jpg";
+import img13 from "../../../assets/product7.jpeg";
 import img15 from "../../../assets/new ceo.jpg";
 
 const infoCards = [
@@ -31,24 +31,29 @@ const categories = [
 
 const products = [
   {
-    id: 1,
-    image: img10,
-    title: "HIRANYA - 2000",
-    subtitle: "Furima Hyranya - 2000",
-  },
-  {
     id: 2,
-    image: img11,
-    title: "HB - HS1000G",
-    subtitle: "Sipijangsaeng Gold for 1 ..",
+    image: img10,
+    title: "MODEL NO.: 5000A",
+    subtitle: "HB GOLD MAT",
   },
   {
     id: 3,
-    image: img12,
-    title: "HB - SJG - 13D",
-    subtitle: "Sipijangsaeng Gold for 2 ..",
+    image: img11,
+    title: "MODEL NO.: 4000A",
+    subtitle: "HB SILVER MAT",
   },
-  { id: 4, image: img13, title: "휴리마 - CR1450", subtitle: "Furima Crown" },
+  {
+    id: 4,
+    image: img12,
+    title: "MODEL NO.: 900A",
+    subtitle: "HB CUSHION MAT",
+  },
+  {
+    id: 5,
+    image: img13,
+    title: "MODEL NO.: 50A",
+    subtitle: "HB SLIMMING BELT",
+  },
 ];
 
 // Animation Variants
@@ -283,7 +288,7 @@ export default function CompanySection() {
             PRODUCT INFO
           </h2>
           <p className="text-gray-600 text-lg font-medium mb-2">
-            INTRODUCE HANBITNANO PRODUCTS
+            INTRODUCE OUR PRODUCTS
           </p>
           <div className="mx-auto w-24 border-b-2 border-gray-800"></div>
         </motion.div>

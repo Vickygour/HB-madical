@@ -1,49 +1,80 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useSearchParams } from 'react-router-dom';
-import img1 from '../../assets/Product1-DgOUnbMM.jpg';
-import img2 from '../../assets/Product2-DhjdOj4Q.jpg';
-import img3 from '../../assets/Product3-CSZBqCjC.jpg';
-import img4 from '../../assets/Product5-tD8NLp4R.jpg';
-import img5 from '../../assets/Product6-DqKLKYb1.jpg';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
+import img1 from "../../assets/Product1-DgOUnbMM.jpg";
+import img2 from "../../assets/Product2-DhjdOj4Q.jpg";
+import img3 from "../../assets/Product3-CSZBqCjC.jpg";
+import img4 from "../../assets/Product5-tD8NLp4R.jpg";
+import img6 from "../../assets/Product6-DqKLKYb1.jpg";
+import img5 from "../../assets/product7.jpeg";
+import img8 from "../../assets/product8.jpeg";
+import img9 from "../../assets/product9.jpeg";
+import img10 from "../../assets/product10.jpeg";
+import img11 from "../../assets/product11.jpeg";
+import img12 from "../../assets/product12.jpeg";
+import img13 from "../../assets/product13.jpeg";
 
 const tabs = [
-  { id: 'personal-combo', label: 'Personal combination stimulator' },
-  { id: 'thermal-device', label: 'Personal thermal device' },
-  { id: 'health-food', label: 'Functional health food' },
+  { id: "personal-combo", label: "Personal combination stimulator" },
+  { id: "thermal-device", label: "Personal thermal device" },
+  { id: "health-food", label: "Functional health food" },
 ];
 
 // Product data
 const products = [
   {
     id: 1,
-    name: 'Furima Hyranya - 2000',
-    model: 'HIRANYA - 2000',
+    name: "HB CERVICAL PILLOW",
+    model: "MODEL NO.: 500A",
     image: img1,
   },
   {
     id: 2,
-    name: 'Sipijangsaeng Gold for 1 person',
-    model: 'HB - HS1000G',
+    name: "HB GOLD MAT",
+    model: "MODEL NO.: 5000A",
     image: img2,
   },
   {
     id: 3,
-    name: 'Sipijangsaeng Gold for 2 person',
-    model: 'HB - SJG - 13D',
+    name: "HB SILVER MAT",
+    model: "MODEL NO.: 4000A",
     image: img3,
   },
   {
     id: 4,
-    name: 'Furima Crown',
-    model: '휴리마 - CR1450',
+    name: "HB CUSHION MAT",
+    model: "MODEL NO.: 900A",
     image: img4,
   },
   {
     id: 5,
-    name: 'Furima Crown',
-    model: '휴리마 - CR1450',
+    name: "HB SLIMMING BELT",
+    model: "MODEL NO.: 50A",
     image: img5,
+  },
+  {
+    id: 6,
+    name: "Furima Crown",
+    model: "휴리마 - CR1450",
+    image: img6,
+  },
+  {
+    id: 8,
+    name: "HB TATTUM SITTING THERAPY",
+    model: "MODEL NO.: 9000A",
+    image: img8,
+    attachments: [
+      { id: 9, image: img9, name: "hB FURIMA CROWN", model: "휴리마 - CR1450" },
+      { id: 10, image: img10, name: "Furima Crown", model: "휴리마 - CR1450" },
+      { id: 11, image: img11, name: "Furima Crown", model: "휴리마 - CR1450" },
+      { id: 12, image: img12, name: "Furima Crown", model: "휴리마 - CR1450" },
+    ],
+  },
+  {
+    id: 13,
+    name: "HB GRAPHENE BELT",
+    model: "MODEL NO.: 60A",
+    image: img13,
   },
 ];
 
@@ -53,7 +84,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
@@ -72,14 +103,15 @@ const scaleIn = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
 const ProductInfo = () => {
   const [searchParams] = useSearchParams();
-  const tabFromUrl = searchParams.get('tab');
-  const [activeTab, setActiveTab] = useState(tabFromUrl || 'personal-combo');
+  const tabFromUrl = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState(tabFromUrl || "personal-combo");
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     if (tabFromUrl) {
@@ -89,7 +121,7 @@ const ProductInfo = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'personal-combo':
+      case "personal-combo":
         return (
           <motion.div
             key="personal-combo"
@@ -126,12 +158,20 @@ const ProductInfo = () => {
                   className="bg-white rounded-none overflow-hidden hover:shadow-xl transition-shadow duration-300"
                 >
                   {/* Product Image */}
-                  <div className="w-full h-56 md:h-64 bg-gray-100 overflow-hidden">
+                  <div className="w-full h-56 md:h-64 bg-gray-100 overflow-hidden relative group">
                     <img
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
+                    {product.attachments && (
+                      <button
+                        onClick={() => setSelectedProduct(product)}
+                        className="absolute bottom-2 right-2 bg-blue-600 text-white px-3 py-1.5 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-blue-700"
+                      >
+                        View Attachments ({product.attachments.length})
+                      </button>
+                    )}
                   </div>
 
                   {/* Product Details */}
@@ -149,7 +189,7 @@ const ProductInfo = () => {
           </motion.div>
         );
 
-      case 'thermal-device':
+      case "thermal-device":
         return (
           <motion.div
             key="thermal-device"
@@ -225,16 +265,16 @@ const ProductInfo = () => {
               >
                 {[
                   {
-                    title: 'Deep Tissue Penetration',
-                    text: 'Advanced thermal technology delivers therapeutic heat deep into muscle tissues, promoting faster recovery and pain relief.',
+                    title: "Deep Tissue Penetration",
+                    text: "Advanced thermal technology delivers therapeutic heat deep into muscle tissues, promoting faster recovery and pain relief.",
                   },
                   {
-                    title: 'Circulation Enhancement',
-                    text: 'Improved blood flow helps deliver oxygen and nutrients throughout the body, supporting overall health.',
+                    title: "Circulation Enhancement",
+                    text: "Improved blood flow helps deliver oxygen and nutrients throughout the body, supporting overall health.",
                   },
                   {
-                    title: 'Safe & Reliable',
-                    text: 'Medical-grade materials and precise temperature control ensure safe, consistent therapeutic treatment.',
+                    title: "Safe & Reliable",
+                    text: "Medical-grade materials and precise temperature control ensure safe, consistent therapeutic treatment.",
                   },
                 ].map((item, idx) => (
                   <motion.div key={idx} variants={scaleIn}>
@@ -251,7 +291,7 @@ const ProductInfo = () => {
           </motion.div>
         );
 
-      case 'health-food':
+      case "health-food":
         return (
           <motion.div
             key="health-food"
@@ -279,20 +319,20 @@ const ProductInfo = () => {
               >
                 {[
                   {
-                    title: 'Nutritional Excellence',
-                    desc: 'Carefully formulated products using premium ingredients for optimal health benefits.',
+                    title: "Nutritional Excellence",
+                    desc: "Carefully formulated products using premium ingredients for optimal health benefits.",
                   },
                   {
-                    title: 'Scientific Research',
-                    desc: 'All products backed by extensive research and clinical studies for proven effectiveness.',
+                    title: "Scientific Research",
+                    desc: "All products backed by extensive research and clinical studies for proven effectiveness.",
                   },
                   {
-                    title: 'Quality Assurance',
-                    desc: 'Manufactured in certified facilities following strict quality control standards.',
+                    title: "Quality Assurance",
+                    desc: "Manufactured in certified facilities following strict quality control standards.",
                   },
                   {
-                    title: 'Natural Ingredients',
-                    desc: 'Focus on natural, plant-based ingredients for safe and effective supplementation.',
+                    title: "Natural Ingredients",
+                    desc: "Focus on natural, plant-based ingredients for safe and effective supplementation.",
                   },
                 ].map((item, idx) => (
                   <motion.div
@@ -352,8 +392,8 @@ const ProductInfo = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 md:px-8 py-3 md:py-4 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
               {tab.label}
@@ -375,6 +415,112 @@ const ProductInfo = () => {
       </div>
 
       <div className="bg-white min-h-screen">{renderContent()}</div>
+
+      {/* Attachments Modal */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedProduct(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white w-full max-w-6xl max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="sticky top-0 bg-gray-800 text-white p-4 md:p-6 flex justify-between items-start z-10">
+                <div>
+                  <h2 className="text-xl md:text-2xl font-bold mb-1">
+                    {selectedProduct.name}
+                  </h2>
+                  <p className="text-sm text-gray-300">
+                    {selectedProduct.model}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedProduct(null)}
+                  className="text-white hover:text-gray-300 text-3xl leading-none"
+                >
+                  ×
+                </button>
+              </div>
+
+              {/* Main Product */}
+              <div className="p-4 md:p-6 border-b border-gray-200">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">
+                  Main Product
+                </h3>
+                <div className="bg-gray-50 p-4 flex items-start gap-4">
+                  <img
+                    src={selectedProduct.image}
+                    alt={selectedProduct.name}
+                    className="w-32 h-32 md:w-48 md:h-48 object-contain"
+                  />
+                  <div>
+                    <h4 className="font-bold text-gray-800 mb-2">
+                      {selectedProduct.name}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      {selectedProduct.model}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Attachments */}
+              <div className="p-4 md:p-6">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">
+                  Attachments ({selectedProduct.attachments.length})
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                  {selectedProduct.attachments.map((attachment) => (
+                    <motion.div
+                      key={attachment.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+                    >
+                      <div className="w-full aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img
+                          src={attachment.image}
+                          alt={attachment.name}
+                          className="max-w-full max-h-full object-contain transition-transform duration-300"
+                        />
+                      </div>
+                      <div className="p-3 md:p-4 text-center">
+                        <p className="text-gray-500 text-xs font-medium mb-1">
+                          {attachment.model}
+                        </p>
+                        <h4 className="text-gray-800 text-sm font-bold">
+                          {attachment.name}
+                        </h4>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="sticky bottom-0 bg-gray-100 p-4 flex justify-end border-t border-gray-200">
+                <button
+                  onClick={() => setSelectedProduct(null)}
+                  className="bg-blue-600 text-white px-6 py-2 font-semibold hover:bg-blue-700 transition-colors duration-200"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

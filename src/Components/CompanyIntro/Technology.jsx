@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useSearchParams } from 'react-router-dom';
-import img1 from '../../assets/ceramic.jpg';
-import img2 from '../../assets/heat.jpg';
-import img3 from '../../assets/heatrays.jpg';
-import img4 from '../../assets/rowprequency.jpg';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
+import img1 from "../../assets/ceramic copy.jpg";
+import img2 from "../../assets/heat.jpg";
+import img3 from "../../assets/heatrays.jpg";
+import img4 from "../../assets/rowprequency.jpg";
 
 const tabs = [
-  { id: 'ceramic', label: 'Ceramic' },
-  { id: 'thermal', label: 'Thermal' },
-  { id: 'heating', label: 'Heating/Magnetic' },
-  { id: 'lowfreq', label: 'Low frequency/electric' },
+  { id: "ceramic", label: "Ceramic" },
+  { id: "thermal", label: "Thermal" },
+  { id: "heating", label: "Heating/Magnetic" },
+  { id: "lowfreq", label: "Low frequency/electric" },
 ];
 
 // Animation Variants
@@ -19,7 +19,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
@@ -28,14 +28,14 @@ const scaleIn = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
 const Technology = () => {
   const [searchParams] = useSearchParams();
-  const tabFromUrl = searchParams.get('tab');
-  const [activeTab, setActiveTab] = useState(tabFromUrl || 'ceramic');
+  const tabFromUrl = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState(tabFromUrl || "ceramic");
 
   useEffect(() => {
     if (tabFromUrl) {
@@ -45,7 +45,7 @@ const Technology = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'ceramic':
+      case "ceramic":
         return (
           <motion.div
             key="ceramic"
@@ -67,7 +67,7 @@ const Technology = () => {
           </motion.div>
         );
 
-      case 'thermal':
+      case "thermal":
         return (
           <motion.div
             key="thermal"
@@ -89,7 +89,7 @@ const Technology = () => {
           </motion.div>
         );
 
-      case 'heating':
+      case "heating":
         return (
           <motion.div
             key="heating"
@@ -111,7 +111,7 @@ const Technology = () => {
           </motion.div>
         );
 
-      case 'lowfreq':
+      case "lowfreq":
         return (
           <motion.div
             key="lowfreq"
@@ -163,8 +163,8 @@ const Technology = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 md:px-8 py-3 md:py-4 text-sm md:text-base font-medium transition-all duration-200 whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
               {tab.label}
