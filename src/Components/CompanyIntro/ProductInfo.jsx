@@ -1,97 +1,155 @@
 import { useState, useEffect } from "react";
+
 import { motion, AnimatePresence } from "framer-motion";
+
 import { useSearchParams } from "react-router-dom";
+
 import img1 from "../../assets/Product1-DgOUnbMM.jpg";
+
 import img2 from "../../assets/Product2-DhjdOj4Q.jpg";
+
 import img3 from "../../assets/Product3-CSZBqCjC.jpg";
+
 import img4 from "../../assets/Product5-tD8NLp4R.jpg";
+
 import img6 from "../../assets/Product6-DqKLKYb1.jpg";
+
 import img5 from "../../assets/product7.jpeg";
+
 import img8 from "../../assets/product8.jpeg";
+
 import img9 from "../../assets/product9.jpeg";
+
 import img10 from "../../assets/product10.jpeg";
+
 import img11 from "../../assets/product11.jpeg";
+
 import img12 from "../../assets/product12.jpeg";
+
 import img13 from "../../assets/product13.jpeg";
 
 const tabs = [
   { id: "personal-combo", label: "Personal combination stimulator" },
+
   { id: "thermal-device", label: "Personal thermal device" },
+
   { id: "health-food", label: "Functional health food" },
 ];
 
 // Product data
+
 const products = [
   {
     id: 1,
+
     name: "HB CERVICAL PILLOW",
+
     model: "MODEL NO.: 500A",
+
     image: img1,
   },
+
   {
     id: 2,
+
     name: "HB GOLD MAT",
+
     model: "MODEL NO.: 5000A",
+
     image: img2,
   },
+
   {
     id: 3,
+
     name: "HB SILVER MAT",
+
     model: "MODEL NO.: 4000A",
+
     image: img3,
   },
+
   {
     id: 4,
+
     name: "HB CUSHION MAT",
+
     model: "MODEL NO.: 900A",
+
     image: img4,
   },
+
   {
     id: 5,
+
     name: "HB SLIMMING BELT",
+
     model: "MODEL NO.: 50A",
+
     image: img5,
   },
+
   {
     id: 6,
+
     name: "Furima Crown",
+
     model: "휴리마 - CR1450",
+
     image: img6,
   },
+
   {
     id: 8,
+
     name: "HB TATTUM SITTING THERAPY",
+
     model: "MODEL NO.: 9000A",
+
     image: img8,
+
     attachments: [
       { id: 9, image: img9, name: "hB FURIMA CROWN", model: "휴리마 - CR1450" },
+
       { id: 10, image: img10, name: "Furima Crown", model: "휴리마 - CR1450" },
+
       { id: 11, image: img11, name: "Furima Crown", model: "휴리마 - CR1450" },
+
       { id: 12, image: img12, name: "Furima Crown", model: "휴리마 - CR1450" },
     ],
   },
+
   {
     id: 13,
+
     name: "HB GRAPHENE BELT",
+
     model: "MODEL NO.: 60A",
+
     image: img13,
   },
 ];
 
 // Animation Variants
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
+
   visible: {
     opacity: 1,
+
     y: 0,
+
     transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
+
   visible: {
     opacity: 1,
+
     transition: {
       staggerChildren: 0.15,
     },
@@ -100,17 +158,23 @@ const staggerContainer = {
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.95 },
+
   visible: {
     opacity: 1,
+
     scale: 1,
+
     transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
 const ProductInfo = () => {
   const [searchParams] = useSearchParams();
+
   const tabFromUrl = searchParams.get("tab");
+
   const [activeTab, setActiveTab] = useState(tabFromUrl || "personal-combo");
+
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
@@ -131,10 +195,12 @@ const ProductInfo = () => {
             className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12"
           >
             {/* Header Section */}
+
             <div className="mb-8 md:mb-12">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
                 PERSONAL COMBINATION STIMULATOR
               </h2>
+
               <div className="bg-gray-100 p-4 md:p-6 border-l-4 border-gray-600">
                 <p className="text-gray-700 text-sm md:text-base leading-relaxed">
                   Uses thermal and low-frequency stimulation for the purpose of
@@ -145,6 +211,7 @@ const ProductInfo = () => {
             </div>
 
             {/* Product Grid */}
+
             <motion.div
               initial="hidden"
               animate="visible"
@@ -158,12 +225,14 @@ const ProductInfo = () => {
                   className="bg-white rounded-none overflow-hidden hover:shadow-xl transition-shadow duration-300"
                 >
                   {/* Product Image */}
-                  <div className="w-full h-56 md:h-64 bg-gray-100 overflow-hidden relative group">
+
+                  <div className="w-full h-56 md:h-64 bg-gray-100 overflow-hidden relative group flex items-center justify-center p-2">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
                     />
+
                     {product.attachments && (
                       <button
                         onClick={() => setSelectedProduct(product)}
@@ -175,10 +244,12 @@ const ProductInfo = () => {
                   </div>
 
                   {/* Product Details */}
+
                   <div className="p-4 md:p-6 text-center">
                     <p className="text-gray-500 text-xs md:text-sm font-medium mb-2">
                       {product.model}
                     </p>
+
                     <h3 className="text-gray-800 text-sm md:text-base font-bold">
                       {product.name}
                     </h3>
@@ -222,6 +293,7 @@ const ProductInfo = () => {
                 to provide therapeutic warmth that penetrates deep into tissues,
                 promoting healing and comfort.
               </p>
+
               <p className="text-gray-600 text-sm md:text-base leading-relaxed">
                 Each device is crafted with safety and effectiveness in mind,
                 featuring precise temperature control and energy-efficient
@@ -238,11 +310,14 @@ const ProductInfo = () => {
                 alt="Thermal Device Technology"
                 className="w-full h-full object-cover"
               />
+
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/40 to-black/70" />
+
               <div className="absolute top-1/2 right-4 md:right-12 transform -translate-y-1/2 text-right text-white max-w-xs md:max-w-xl px-4">
                 <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-6 tracking-wide drop-shadow-lg">
                   THERMAL CARE
                 </h3>
+
                 <p className="text-sm md:text-base lg:text-lg leading-relaxed drop-shadow-md">
                   Experience the healing power of therapeutic heat with our
                   advanced thermal devices designed for your comfort and
@@ -257,6 +332,7 @@ const ProductInfo = () => {
                   KEY BENEFITS
                 </h3>
               </div>
+
               <motion.div
                 initial="hidden"
                 animate="visible"
@@ -266,14 +342,19 @@ const ProductInfo = () => {
                 {[
                   {
                     title: "Deep Tissue Penetration",
+
                     text: "Advanced thermal technology delivers therapeutic heat deep into muscle tissues, promoting faster recovery and pain relief.",
                   },
+
                   {
                     title: "Circulation Enhancement",
+
                     text: "Improved blood flow helps deliver oxygen and nutrients throughout the body, supporting overall health.",
                   },
+
                   {
                     title: "Safe & Reliable",
+
                     text: "Medical-grade materials and precise temperature control ensure safe, consistent therapeutic treatment.",
                   },
                 ].map((item, idx) => (
@@ -281,6 +362,7 @@ const ProductInfo = () => {
                     <h4 className="text-base md:text-lg font-bold text-red-700 mb-2">
                       {item.title}
                     </h4>
+
                     <p className="text-gray-600 text-sm md:text-base leading-relaxed">
                       {item.text}
                     </p>
@@ -320,18 +402,25 @@ const ProductInfo = () => {
                 {[
                   {
                     title: "Nutritional Excellence",
+
                     desc: "Carefully formulated products using premium ingredients for optimal health benefits.",
                   },
+
                   {
                     title: "Scientific Research",
+
                     desc: "All products backed by extensive research and clinical studies for proven effectiveness.",
                   },
+
                   {
                     title: "Quality Assurance",
+
                     desc: "Manufactured in certified facilities following strict quality control standards.",
                   },
+
                   {
                     title: "Natural Ingredients",
+
                     desc: "Focus on natural, plant-based ingredients for safe and effective supplementation.",
                   },
                 ].map((item, idx) => (
@@ -343,6 +432,7 @@ const ProductInfo = () => {
                     <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 md:mb-4">
                       {item.title}
                     </h3>
+
                     <p className="text-gray-700 text-sm md:text-base leading-relaxed">
                       {item.desc}
                     </p>
@@ -405,9 +495,13 @@ const ProductInfo = () => {
       <div className="bg-black py-2 md:py-3 px-4 md:px-6">
         <div className="max-w-7xl mx-auto flex justify-end items-center gap-2 text-xs md:text-sm text-white flex-wrap">
           <span>Home</span>
+
           <span>/</span>
+
           <span>Product Info</span>
+
           <span>/</span>
+
           <span className="font-semibold">
             {tabs.find((t) => t.id === activeTab)?.label}
           </span>
@@ -417,6 +511,7 @@ const ProductInfo = () => {
       <div className="bg-white min-h-screen">{renderContent()}</div>
 
       {/* Attachments Modal */}
+
       <AnimatePresence>
         {selectedProduct && (
           <motion.div
@@ -435,15 +530,18 @@ const ProductInfo = () => {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
+
               <div className="sticky top-0 bg-gray-800 text-white p-4 md:p-6 flex justify-between items-start z-10">
                 <div>
                   <h2 className="text-xl md:text-2xl font-bold mb-1">
                     {selectedProduct.name}
                   </h2>
+
                   <p className="text-sm text-gray-300">
                     {selectedProduct.model}
                   </p>
                 </div>
+
                 <button
                   onClick={() => setSelectedProduct(null)}
                   className="text-white hover:text-gray-300 text-3xl leading-none"
@@ -453,20 +551,26 @@ const ProductInfo = () => {
               </div>
 
               {/* Main Product */}
+
               <div className="p-4 md:p-6 border-b border-gray-200">
                 <h3 className="text-lg font-bold text-gray-800 mb-4">
                   Main Product
                 </h3>
+
                 <div className="bg-gray-50 p-4 flex items-start gap-4">
-                  <img
-                    src={selectedProduct.image}
-                    alt={selectedProduct.name}
-                    className="w-32 h-32 md:w-48 md:h-48 object-contain"
-                  />
+                  <div className="w-32 h-32 md:w-48 md:h-48 bg-white flex items-center justify-center p-2">
+                    <img
+                      src={selectedProduct.image}
+                      alt={selectedProduct.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+
                   <div>
                     <h4 className="font-bold text-gray-800 mb-2">
                       {selectedProduct.name}
                     </h4>
+
                     <p className="text-sm text-gray-600">
                       {selectedProduct.model}
                     </p>
@@ -475,10 +579,12 @@ const ProductInfo = () => {
               </div>
 
               {/* Attachments */}
+
               <div className="p-4 md:p-6">
                 <h3 className="text-lg font-bold text-gray-800 mb-4">
                   Attachments ({selectedProduct.attachments.length})
                 </h3>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                   {selectedProduct.attachments.map((attachment) => (
                     <motion.div
@@ -488,17 +594,19 @@ const ProductInfo = () => {
                       transition={{ duration: 0.3 }}
                       className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300"
                     >
-                      <div className="w-full aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden">
+                      <div className="w-full h-40 md:h-48 bg-gray-100 overflow-hidden flex items-center justify-center p-2">
                         <img
                           src={attachment.image}
                           alt={attachment.name}
-                          className="max-w-full max-h-full object-contain transition-transform duration-300"
+                          className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
                         />
                       </div>
+
                       <div className="p-3 md:p-4 text-center">
                         <p className="text-gray-500 text-xs font-medium mb-1">
                           {attachment.model}
                         </p>
+
                         <h4 className="text-gray-800 text-sm font-bold">
                           {attachment.name}
                         </h4>
@@ -509,6 +617,7 @@ const ProductInfo = () => {
               </div>
 
               {/* Footer */}
+
               <div className="sticky bottom-0 bg-gray-100 p-4 flex justify-end border-t border-gray-200">
                 <button
                   onClick={() => setSelectedProduct(null)}
