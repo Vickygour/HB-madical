@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+
 import logo from '../../assets/Brand.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown, ChevronUp, Facebook, FacebookIcon, Instagram, InstagramIcon, Youtube, YoutubeIcon } from 'lucide-react';
-import img1 from '../../assets/main_metapo01.jpg';
-import img2 from '../../assets/main_metapo02.jpg';
-import img3 from '../../assets/main_metapo03.jpg';
 import img4 from '../../assets/MainImg-CS1JoXJ1.jpg';
-import img5 from '../../assets/new ceo.jpg';
+
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
 
 const sliderImages = [
   {
@@ -20,68 +18,99 @@ const sliderImages = [
   },
 ];
 
-const coIntroDropdownItems = [
-  { id: 'greetings', label: 'Greetings' },
-  { id: 'corporate', label: 'Corporate philosophy' },
-  { id: 'history', label: 'History' },
-  { id: 'patents', label: 'Patents/Certificates' },
-  { id: 'award', label: 'Award details' },
-  { id: 'howtofind', label: 'How to find us' },
-];
-
-const technologyDropdownItems = [
-  { id: 'ceramic', label: 'Ceramic' },
-  { id: 'thermal', label: 'Thermal' },
-  { id: 'heating', label: 'Heating/Magnetic' },
-  { id: 'lowfreq', label: 'Low frequency/electric' },
-];
-
-const productInfoDropdownItems = [
-  { id: 'personal-combo', label: 'HB Nano Thermal Device' },
-  { id: 'thermal-device', label: 'Personal Massagers' },
-  { id: 'health-food', label: 'Functional Cosmatics' },
-];
-
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // 🔴 ONLY ProductInfo page pe slider hide
+  const hideSliderRoutes = [
+    '/ProductPage',
+    '/CushionMat',
+    '/Goldmat',
+    '/Graphenebelt',
+    '/Silvermat',
+    '/SlimmingBelt',
+    '/TattumSitting',
+  ];
+
+  const hideSlider = hideSliderRoutes.includes(location.pathname);
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // ⭐ Dropdown States - FIXED
   const [coIntroDropdownOpen, setCoIntroDropdownOpen] = useState(false);
   const [techDropdownOpen, setTechDropdownOpen] = useState(false);
   const [productDropdownOpen, setProductDropdownOpen] = useState(false);
+
+  // Hover indexes
   const [coIntroHoverIndex, setCoIntroHoverIndex] = useState(null);
   const [techHoverIndex, setTechHoverIndex] = useState(null);
   const [productHoverIndex, setProductHoverIndex] = useState(null);
-  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Mobile menu states
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Mobile dropdown states
   const [mobileCoIntroOpen, setMobileCoIntroOpen] = useState(false);
   const [mobileTechOpen, setMobileTechOpen] = useState(false);
   const [mobileProductOpen, setMobileProductOpen] = useState(false);
 
+  // Refs for dropdown containers
+  const coIntroRef = useRef(null);
+  const techRef = useRef(null);
+  const productRef = useRef(null);
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when screen size changes
+  // ⭐ FIXED: Close dropdowns when clicking outside
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setMobileMenuOpen(false);
+    const handleClickOutside = (event) => {
+      if (coIntroRef.current && !coIntroRef.current.contains(event.target)) {
+        setCoIntroDropdownOpen(false);
+        setCoIntroHoverIndex(null);
+      }
+      if (techRef.current && !techRef.current.contains(event.target)) {
+        setTechDropdownOpen(false);
+        setTechHoverIndex(null);
+      }
+      if (productRef.current && !productRef.current.contains(event.target)) {
+        setProductDropdownOpen(false);
+        setProductHoverIndex(null);
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Dropdown Items Data
+  const coIntroDropdownItems = [
+    { id: 'greetings', label: 'Greetings' },
+    { id: 'corporate', label: 'Corporate philosophy' },
+    { id: 'history', label: 'History' },
+    { id: 'patents', label: 'Patents/Certificates' },
+    { id: 'award', label: 'Award details' },
+    { id: 'howtofind', label: 'How to find us' },
+  ];
+
+  const technologyDropdownItems = [
+    { id: 'ceramic', label: 'Ceramic' },
+    { id: 'thermal', label: 'Thermal' },
+    { id: 'heating', label: 'Heating/Magnetic' },
+    { id: 'lowfreq', label: 'Low frequency/electric' },
+  ];
+
+  const productInfoDropdownItems = [
+    { id: 'personal-combo', label: 'HB Nano Thermal Device' },
+    { id: 'thermal-device', label: 'Personal Massagers' },
+    { id: 'health-food', label: 'Functional Cosmatics' },
+  ];
+
+  // Handle dropdown item clicks
   const handleCoIntroClick = (tabId) => {
     navigate(`/CompanyIntro?tab=${tabId}`);
     setCoIntroDropdownOpen(false);
@@ -101,326 +130,262 @@ const Header = () => {
   };
 
   return (
-    <section className="relative w-full h-[90vh] overflow-hidden">
-      <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-sm transition-all duration-300">
-        {/* Top Bar - Hide on scroll down */}
-        {!isScrolled && (
-          <div
-            className={`overflow-hidden hidden lg:block transition-all duration-500 ease-in-out ${
-              isScrolled ? 'max-h-0 opacity-0' : 'max-h-20 opacity-100'
-            }`}
-          >
-            <div className="py-3">
-              <div className="max-w-7xl mx-auto px-8 flex gap-5 items-center  justify-between">
-                <div className="flex gap-5 items-center ">
-                  <Link
-                    to="/"
-                    className="text-white text-sm font-medium hover:text-gray-300 transition-colors"
-                  >
-                    Home
-                  </Link>
-                  <div className="flex gap-2">
-                    <img
-                      src="https://flagcdn.com/w40/kr.png"
-                      alt="Korean"
-                      className="h-5 w-auto cursor-pointer hover:opacity-80 transition-opacity"
-                    />
-                    <img
-                      src="https://flagcdn.com/w40/us.png"
-                      alt="English"
-                      className="h-5 w-auto cursor-pointer hover:opacity-80 transition-opacity"
-                    />
-                  </div>
-                </div>
-                <div className="flex gap-2 text-white">
-                  <FacebookIcon className="h-5 w-auto cursor-pointer hover:opacity-80 transition-opacity" />
-                  <InstagramIcon className="h-5 w-auto cursor-pointer hover:opacity-80 transition-opacity" />
-                  <YoutubeIcon className="h-5 w-auto cursor-pointer hover:opacity-80 transition-opacity" />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+    <>
+      {/* ===== NAVBAR ===== */}
+      <header className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur shadow">
+        <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+          <Link to="/">
+            <img src={logo} alt="Logo" className="h-12" />
+          </Link>
 
-        <div className="bg-white/80 shadow-sm">
-          <div className="mx-auto flex justify-between items-center max-w-7xl px-6 lg:px-8 py-3">
-            {/* Logo */}
-            <Link to="/" onClick={() => setMobileMenuOpen(false)}>
-              <img
-                src={logo}
-                alt="Logo"
-                className="h-12 lg:h-16 select-none"
-                draggable="false"
-              />
+          {/* ⭐ DESKTOP NAVIGATION WITH FIXED HOVER DROPDOWNS */}
+          <nav className="hidden lg:flex gap-8 items-center">
+            <Link to="/" className="font-medium hover:text-blue-600">
+              Home
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex gap-12 items-center relative pr-32">
-              {/* Co Introduction Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setCoIntroDropdownOpen(true)}
-                onMouseLeave={() => {
-                  setCoIntroDropdownOpen(false);
-                  setCoIntroHoverIndex(null);
-                }}
+            {/* ⭐ Co introduction Dropdown - FIXED */}
+            <div
+              ref={coIntroRef}
+              className="relative group"
+              onMouseEnter={() => setCoIntroDropdownOpen(true)}
+              onMouseLeave={() => {
+                setCoIntroDropdownOpen(false);
+                setCoIntroHoverIndex(null);
+              }}
+            >
+              <Link
+                to="/CompanyIntro"
+                className="font-medium hover:text-blue-600 inline-block px-2 py-3"
               >
-                <Link to="/CompanyIntro">
-                  <button
-                    className="text-black font-medium px-3 py-2 hover:text-blue-600 transition-colors"
-                    tabIndex={0}
-                  >
-                    Co introduction
-                  </button>
-                </Link>
-                {coIntroDropdownOpen && (
-                  <div className="absolute top-full left-0 z-40">
-                    <ul className="bg-black text-white w-[250px] shadow-lg">
-                      {coIntroDropdownItems.map((item, idx) => (
-                        <li
-                          key={idx}
-                          onClick={() => handleCoIntroClick(item.id)}
-                          onMouseEnter={() => setCoIntroHoverIndex(idx)}
-                          onMouseLeave={() => setCoIntroHoverIndex(null)}
-                          className={`px-6 py-3 cursor-pointer transition-all duration-150 ${
-                            coIntroHoverIndex === idx
-                              ? 'bg-blue-600'
-                              : 'bg-black'
-                          }`}
-                        >
-                          {item.label}
-                        </li>
-                      ))}
-                    </ul>
+                Co introduction
+              </Link>
+              {coIntroDropdownOpen && (
+                <div className="absolute top-10 left-0 mt-1 z-50 w-[280px] bg-black/95 backdrop-blur-sm shadow-2xl rounded-xl border border-white/10 overflow-hidden">
+                  {coIntroDropdownItems.map((item, idx) => (
+                    <button
+                      key={item.id}
+                      onClick={() => handleCoIntroClick(item.id)}
+                      onMouseEnter={() => setCoIntroHoverIndex(idx)}
+                      className={`w-full text-left px-6 py-4 text-white text-sm font-medium transition-all duration-200 hover:bg-blue-600/80 ${
+                        coIntroHoverIndex === idx ? 'bg-blue-600/50' : ''
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* ⭐ Technology Dropdown - FIXED */}
+            <div
+              ref={techRef}
+              className="relative group"
+              onMouseEnter={() => setTechDropdownOpen(true)}
+              onMouseLeave={() => {
+                setTechDropdownOpen(false);
+                setTechHoverIndex(null);
+              }}
+            >
+              <Link
+                to="/Technology"
+                className="font-medium hover:text-blue-600 inline-block px-2 py-3"
+              >
+                Technology
+              </Link>
+              {techDropdownOpen && (
+                <div className="absolute top-10 left-0 mt-1 z-50 w-[280px] bg-black/95 backdrop-blur-sm shadow-2xl rounded-xl border border-white/10 overflow-hidden">
+                  {technologyDropdownItems.map((item, idx) => (
+                    <button
+                      key={item.id}
+                      onClick={() => handleTechClick(item.id)}
+                      onMouseEnter={() => setTechHoverIndex(idx)}
+                      className={`w-full text-left px-6 py-4 text-white text-sm font-medium transition-all duration-200 hover:bg-blue-600/80 ${
+                        techHoverIndex === idx ? 'bg-blue-600/50' : ''
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* ⭐ Product info Dropdown - FIXED */}
+            <div
+              ref={productRef}
+              className="relative group"
+              onMouseEnter={() => setProductDropdownOpen(true)}
+              onMouseLeave={() => {
+                setProductDropdownOpen(false);
+                setProductHoverIndex(null);
+              }}
+            >
+              <Link
+                to="/ProductInfo"
+                className="font-medium hover:text-blue-600 inline-block px-2 py-3"
+              >
+                Product info
+              </Link>
+              {productDropdownOpen && (
+                <div className="absolute top-10 left-0 mt-1 z-50 w-[280px] bg-black/95 backdrop-blur-sm shadow-2xl rounded-xl border border-white/10 overflow-hidden">
+                  {productInfoDropdownItems.map((item, idx) => (
+                    <button
+                      key={item.id}
+                      onClick={() => handleProductClick(item.id)}
+                      onMouseEnter={() => setProductHoverIndex(idx)}
+                      className={`w-full text-left px-6 py-4 text-white text-sm font-medium transition-all duration-200 hover:bg-blue-600/80 ${
+                        productHoverIndex === idx ? 'bg-blue-600/50' : ''
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link to="/ContactUs" className="font-medium hover:text-blue-600">
+              Contact
+            </Link>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+
+        {/* ⭐ MOBILE MENU - UNCHANGED */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-white/95 backdrop-blur border-t border-gray-200 max-h-[70vh] overflow-y-auto">
+            <nav className="px-6 py-4 space-y-2">
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-3 px-4 text-gray-800 font-medium hover:bg-blue-50 rounded-lg transition-all"
+              >
+                Home
+              </Link>
+
+              {/* Mobile Co introduction */}
+              <div className="border-b border-gray-200 pb-4">
+                <button
+                  onClick={() => setMobileCoIntroOpen(!mobileCoIntroOpen)}
+                  className="w-full flex justify-between items-center py-3 text-gray-800 font-medium"
+                >
+                  <span>Co introduction</span>
+                  {mobileCoIntroOpen ? <ChevronUp /> : <ChevronDown />}
+                </button>
+                {mobileCoIntroOpen && (
+                  <div className="mt-2 ml-4 space-y-1">
+                    {coIntroDropdownItems.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => handleCoIntroClick(item.id)}
+                        className="block w-full py-2 px-4 text-left text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-all"
+                      >
+                        {item.label}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
 
-              {/* Technology Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setTechDropdownOpen(true)}
-                onMouseLeave={() => {
-                  setTechDropdownOpen(false);
-                  setTechHoverIndex(null);
-                }}
-              >
-                <Link to="/Technology">
-                  <button
-                    className="text-black font-medium px-3 py-2 hover:text-blue-600 transition-colors"
-                    tabIndex={0}
-                  >
-                    Technology
-                  </button>
-                </Link>
-                {techDropdownOpen && (
-                  <div className="absolute top-full left-0 z-40">
-                    <ul className="bg-black text-white w-[250px] shadow-lg">
-                      {technologyDropdownItems.map((item, idx) => (
-                        <li
-                          key={idx}
-                          onClick={() => handleTechClick(item.id)}
-                          onMouseEnter={() => setTechHoverIndex(idx)}
-                          onMouseLeave={() => setTechHoverIndex(null)}
-                          className={`px-6 py-3 cursor-pointer transition-all duration-150 ${
-                            techHoverIndex === idx ? 'bg-blue-600' : 'bg-black'
-                          }`}
-                        >
-                          {item.label}
-                        </li>
-                      ))}
-                    </ul>
+              {/* Mobile Technology */}
+              <div className="border-b border-gray-200 pb-4">
+                <button
+                  onClick={() => setMobileTechOpen(!mobileTechOpen)}
+                  className="w-full flex justify-between items-center py-3 text-gray-800 font-medium"
+                >
+                  <span>Technology</span>
+                  {mobileTechOpen ? <ChevronUp /> : <ChevronDown />}
+                </button>
+                {mobileTechOpen && (
+                  <div className="mt-2 ml-4 space-y-1">
+                    {technologyDropdownItems.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => handleTechClick(item.id)}
+                        className="block w-full py-2 px-4 text-left text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-all"
+                      >
+                        {item.label}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
 
-              {/* Product Info Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setProductDropdownOpen(true)}
-                onMouseLeave={() => {
-                  setProductDropdownOpen(false);
-                  setProductHoverIndex(null);
-                }}
-              >
-                <Link to="/ProductInfo">
-                  <button
-                    className="text-black font-medium px-3 py-2 hover:text-blue-600 transition-colors"
-                    tabIndex={0}
-                  >
-                    Product info
-                  </button>
-                </Link>
-                {productDropdownOpen && (
-                  <div className="absolute top-full left-0 z-40">
-                    <ul className="bg-black text-white w-[250px] shadow-lg">
-                      {productInfoDropdownItems.map((item, idx) => (
-                        <li
-                          key={idx}
-                          onClick={() => handleProductClick(item.id)}
-                          onMouseEnter={() => setProductHoverIndex(idx)}
-                          onMouseLeave={() => setProductHoverIndex(null)}
-                          className={`px-6 py-3 cursor-pointer transition-all duration-150 ${
-                            productHoverIndex === idx
-                              ? 'bg-blue-600'
-                              : 'bg-black'
-                          }`}
-                        >
-                          {item.label}
-                        </li>
-                      ))}
-                    </ul>
+              {/* Mobile Product info */}
+              <div className="border-b border-gray-200 pb-4">
+                <button
+                  onClick={() => setMobileProductOpen(!mobileProductOpen)}
+                  className="w-full flex justify-between items-center py-3 text-gray-800 font-medium"
+                >
+                  <span>Product info</span>
+                  {mobileProductOpen ? <ChevronUp /> : <ChevronDown />}
+                </button>
+                {mobileProductOpen && (
+                  <div className="mt-2 ml-4 space-y-1">
+                    {productInfoDropdownItems.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => handleProductClick(item.id)}
+                        className="block w-full py-2 px-4 text-left text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-all"
+                      >
+                        {item.label}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
 
               <Link
-                to="/contactUs"
-                className="text-black hover:text-blue-600 font-medium px-3 py-2 transition-colors"
+                to="/ContactUs"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-3 px-4 text-gray-800 font-medium hover:bg-blue-50 rounded-lg transition-all"
               >
                 Contact
               </Link>
             </nav>
-
-            {/* Mobile Hamburger Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-gray-800 hover:text-blue-600 transition-colors"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
           </div>
-
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="lg:hidden bg-white border-t border-gray-200 max-h-[calc(100vh-80px)] overflow-y-auto">
-              <nav className="px-6 py-4">
-                {/* Co Introduction Mobile */}
-                <div className="border-b border-gray-200 pb-4">
-                  <button
-                    onClick={() => setMobileCoIntroOpen(!mobileCoIntroOpen)}
-                    className="w-full flex justify-between items-center py-3 text-gray-800 font-medium"
-                  >
-                    <span>Co introduction</span>
-                    {mobileCoIntroOpen ? (
-                      <ChevronUp size={20} />
-                    ) : (
-                      <ChevronDown size={20} />
-                    )}
-                  </button>
-                  {mobileCoIntroOpen && (
-                    <ul className="mt-2 ml-4 space-y-2">
-                      {coIntroDropdownItems.map((item) => (
-                        <li
-                          key={item.id}
-                          onClick={() => handleCoIntroClick(item.id)}
-                          className="py-2 text-gray-600 hover:text-blue-600 cursor-pointer"
-                        >
-                          {item.label}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-
-                {/* Technology Mobile */}
-                <div className="border-b border-gray-200 pb-4">
-                  <button
-                    onClick={() => setMobileTechOpen(!mobileTechOpen)}
-                    className="w-full flex justify-between items-center py-3 text-gray-800 font-medium"
-                  >
-                    <span>Technology</span>
-                    {mobileTechOpen ? (
-                      <ChevronUp size={20} />
-                    ) : (
-                      <ChevronDown size={20} />
-                    )}
-                  </button>
-                  {mobileTechOpen && (
-                    <ul className="mt-2 ml-4 space-y-2">
-                      {technologyDropdownItems.map((item) => (
-                        <li
-                          key={item.id}
-                          onClick={() => handleTechClick(item.id)}
-                          className="py-2 text-gray-600 hover:text-blue-600 cursor-pointer"
-                        >
-                          {item.label}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-
-                {/* Product Info Mobile */}
-                <div className="border-b border-gray-200 pb-4">
-                  <button
-                    onClick={() => setMobileProductOpen(!mobileProductOpen)}
-                    className="w-full flex justify-between items-center py-3 text-gray-800 font-medium"
-                  >
-                    <span>Product info</span>
-                    {mobileProductOpen ? (
-                      <ChevronUp size={20} />
-                    ) : (
-                      <ChevronDown size={20} />
-                    )}
-                  </button>
-                  {mobileProductOpen && (
-                    <ul className="mt-2 ml-4 space-y-2">
-                      {productInfoDropdownItems.map((item) => (
-                        <li
-                          key={item.id}
-                          onClick={() => handleProductClick(item.id)}
-                          className="py-2 text-gray-600 hover:text-blue-600 cursor-pointer"
-                        >
-                          {item.label}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-
-                {/* Contact Mobile */}
-                <Link
-                  to="/contactUs"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-3 text-gray-800 font-medium hover:text-blue-600"
-                >
-                  Contact
-                </Link>
-              </nav>
-            </div>
-          )}
-        </div>
+        )}
       </header>
 
-      <Swiper
-        modules={[Autoplay, Pagination]}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
-        loop
-        className="w-full h-full"
-      >
-        {sliderImages.map((slide, idx) => (
-          <SwiperSlide key={idx}>
-            <div
-              className="w-full h-[90vh] bg-cover bg-center relative"
-              style={{ backgroundImage: `url(${slide.img})` }}
-            >
-              <div className="absolute inset-0 bg-black/40 z-0" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-4">
-                <p className="text-white text-lg md:text-2xl font-light tracking-wide mb-3 max-w-2xl">
-                  {slide.desc}
-                </p>
-                <h1 className="text-white text-4xl md:text-6xl font-bold tracking-wide">
-                  {slide.title}
-                </h1>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </section>
+      {/* ===== SLIDER (EXCEPT ProductInfo) - UNCHANGED */}
+      {!hideSlider && (
+        <section className="w-full h-[90vh] mt-[72px]">
+          <Swiper
+            modules={[Autoplay, Pagination]}
+            autoplay={{ delay: 3000 }}
+            pagination={{ clickable: true }}
+            loop
+            className="w-full h-full"
+          >
+            {sliderImages.map((slide, index) => (
+              <SwiperSlide key={index}>
+                <div
+                  className="w-full h-full bg-cover bg-center relative"
+                  style={{ backgroundImage: `url(${slide.img})` }}
+                >
+                  <div className="absolute inset-0 bg-black/40" />
+                  <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
+                    <p className="text-lg md:text-2xl mb-3">{slide.desc}</p>
+                    <h1 className="text-4xl md:text-6xl font-bold">
+                      {slide.title}
+                    </h1>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </section>
+      )}
+    </>
   );
 };
 

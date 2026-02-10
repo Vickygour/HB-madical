@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 import { useSearchParams } from "react-router-dom";
 
@@ -35,6 +36,19 @@ const tabs = [
 
   { id: "health-food", label: "Functional health food" },
 ];
+
+
+const productRoutes = {
+  'HB CERVICAL PILLOW': '/ProductPage',
+  'HB GOLD MAT': '/Goldmat',
+  'HB SILVER MAT': '/Silvermat',
+  'HB CUSHION MAT': '/CushionMat',
+  'HB SLIMMING BELT': '/SlimmingBelt',
+  'HB GRAPHENE BELT': '/Graphenebelt',
+  'HB TATTUM SITTING THERAPY': '/TattumSitting',
+};
+
+
 
 // Product data
 
@@ -87,16 +101,6 @@ const products = [
     model: "MODEL NO.: 50A",
 
     image: img5,
-  },
-
-  {
-    id: 6,
-
-    name: "Furima Crown",
-
-    model: "휴리마 - CR1450",
-
-    image: img6,
   },
 
   {
@@ -174,7 +178,7 @@ const scaleIn = {
 
 const ProductInfo = () => {
   const [searchParams] = useSearchParams();
-
+const navigate = useNavigate();
   const tabFromUrl = searchParams.get("tab");
 
   const [activeTab, setActiveTab] = useState(tabFromUrl || "personal-combo");
@@ -226,7 +230,11 @@ const ProductInfo = () => {
                 <motion.div
                   key={product.id}
                   variants={scaleIn}
-                  className="bg-white rounded-none overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                  onClick={() => {
+                    const route = productRoutes[product.name];
+                    if (route) navigate(route);
+                  }}
+                  className="bg-white rounded-none overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
                 >
                   {/* Product Image */}
 
@@ -239,7 +247,10 @@ const ProductInfo = () => {
 
                     {product.attachments && (
                       <button
-                        onClick={() => setSelectedProduct(product)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedProduct(product);
+                        }}
                         className="absolute bottom-2 right-2 bg-blue-600 text-white px-3 py-1.5 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-blue-700"
                       >
                         View Attachments ({product.attachments.length})

@@ -1,16 +1,23 @@
-import { useState } from "react";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { useState, useRef } from 'react';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import emailjs from '@emailjs/browser'; // ✅ Added EmailJS
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
   });
 
-  const [formStatus, setFormStatus] = useState("");
+  const [formStatus, setFormStatus] = useState('');
+  const formRef = useRef(null); // ✅ Added ref
+
+  // ✅ Your EmailJS credentials
+  const SERVICE_ID = 'service_hy535ak';
+  const TEMPLATE_ID = 'template_nj3wb6n';
+  const PUBLIC_KEY = 'w5NMVIjyxdoScIXwF';
 
   const handleChange = (e) => {
     setFormData({
@@ -19,17 +26,32 @@ const ContactUs = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  // ✅ EmailJS submit function
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormStatus("Thank you! Your message has been sent successfully.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    });
-    setTimeout(() => setFormStatus(""), 5000);
+    setFormStatus('');
+
+    try {
+      await emailjs.sendForm(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        formRef.current,
+        PUBLIC_KEY,
+      );
+      setFormStatus('Thank you! Your message has been sent successfully.');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: '',
+      });
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      setFormStatus('Failed to send message. Please try again.');
+    }
+
+    setTimeout(() => setFormStatus(''), 5000);
   };
 
   return (
@@ -95,7 +117,7 @@ const ContactUs = () => {
               India: 787/2 2nd Floor,
             </p>
             <p className="text-gray-500 text-xs">
-              {" "}
+              {' '}
               Sant Nagar, Delhi - 110084.
             </p>
           </div>
@@ -115,12 +137,28 @@ const ContactUs = () => {
 
         {/* Contact Form and Map Section */}
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Form */}
+          {/* ✅ EmailJS Contact Form */}
           <div className="bg-gray-50 p-8 rounded-none shadow-md">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">
               Send us a Message
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-5">
+            {/* ✅ form ref added */}
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+              {/* ✅ Hidden EmailJS fields */}
+              <input type="hidden" name="user_name" value={formData.name} />
+              <input type="hidden" name="user_email" value={formData.email} />
+              <input type="hidden" name="user_phone" value={formData.phone} />
+              <input
+                type="hidden"
+                name="user_subject"
+                value={formData.subject}
+              />
+              <input
+                type="hidden"
+                name="user_message"
+                value={formData.message}
+              />
+
               {/* Name */}
               <div>
                 <label
@@ -230,7 +268,13 @@ const ContactUs = () => {
 
               {/* Form Status Message */}
               {formStatus && (
-                <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-none">
+                <div
+                  className={`mt-4 p-4 border rounded-none ${
+                    formStatus.includes('Thank')
+                      ? 'bg-green-100 border-green-400 text-green-700'
+                      : 'bg-red-100 border-red-400 text-red-700'
+                  }`}
+                >
                   {formStatus}
                 </div>
               )}
@@ -251,12 +295,6 @@ const ContactUs = () => {
                   <h3 className="font-semibold text-lg mb-1">CEO</h3>
                   <p className="text-gray-300">KIM</p>
                 </div>
-                {/* <div>
-                  <h3 className="font-semibold text-lg mb-1">
-                    Registration Number
-                  </h3>
-                  <p className="text-gray-300">123-81-92457</p>
-                </div> */}
                 <div>
                   <h3 className="font-semibold text-lg mb-1">Address</h3>
                   <p className="text-gray-300">

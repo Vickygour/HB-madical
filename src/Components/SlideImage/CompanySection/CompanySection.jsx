@@ -1,58 +1,85 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import img1 from "../../../assets/banner03.jpg";
-import img2 from "../../../assets/MainImg-CS1JoXJ1.jpg";
-import img4 from "../../../assets/banner02.jpg";
-import img3 from "../../../assets/banner01.jpg";
-import img5 from "../../../assets/ISO.jpg";
-import img6 from "../../../assets/banner_square01.jpg";
-import img7 from "../../../assets/banner_square02.jpg";
-import img8 from "../../../assets/banner_square03.jpg";
-import img9 from "../../../assets/banner_square04.jpg";
-import img10 from "../../../assets/Product2-DhjdOj4Q.jpg";
-import img11 from "../../../assets/Product3-CSZBqCjC.jpg";
-import img12 from "../../../assets/Product5-tD8NLp4R.jpg";
-import img13 from "../../../assets/product7.jpeg";
-import img15 from "../../../assets/new ceo.jpg";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom'; // ⭐ ADDED
+import img1 from '../../../assets/banner03.jpg';
+import img2 from '../../../assets/MainImg-CS1JoXJ1.jpg';
+import img4 from '../../../assets/banner02.jpg';
+import img3 from '../../../assets/banner01.jpg';
+import img5 from '../../../assets/ISO.jpg';
+import img6 from '../../../assets/banner_square01.jpg';
+import img7 from '../../../assets/banner_square02.jpg';
+import img8 from '../../../assets/banner_square03.jpg';
+import img9 from '../../../assets/banner_square04.jpg';
+import img10 from '../../../assets/Product2-DhjdOj4Q.jpg';
+import img11 from '../../../assets/Product3-CSZBqCjC.jpg';
+import img12 from '../../../assets/Product5-tD8NLp4R.jpg';
+import img13 from '../../../assets/product7.jpeg';
+import img15 from '../../../assets/new ceo.jpg';
+
+import matMain from '../../../assets/01 HB CERVICAL PILLOW.jpg';
+import cushion from '../../../assets/HB CUSHION MAT.jpg';
+import goldmat from '../../../assets/01 HB GOLD MAT.jpg';
+import graphenebelt from '../../../assets/01 HB GRAPHENE BELT.jpg';
+import silvermat from '../../../assets/01 HB SILVER MAT.jpg';
+import silvermat2 from '../../../assets/02 HB SILVER MAT copy.jpg';
+import slimmingbelt from '../../../assets/01 HB SLIMMING BELT.jpg';
+import tattum from '../../../assets/02 HB TATTUM SITTING THERAPY.jpg';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 const infoCards = [
-  { title: "CEO", subtitle: "Greetings", image: img15 },
-  { title: "Corporate", subtitle: "Philosophy", image: img2 },
-  { title: "Patents", subtitle: "Certificates", image: img3 },
-  { title: "Award", subtitle: "Details", image: img4 },
+  { title: 'CEO', subtitle: 'Greetings', image: img15 },
+  { title: 'Corporate', subtitle: 'Philosophy', image: img2 },
+  { title: 'Patents', subtitle: 'Certificates', image: img3 },
+  { title: 'Award', subtitle: 'Details', image: img4 },
 ];
 
 const categories = [
-  { name: "Ceramic", image: img6 },
-  { name: "Thermal", image: img7 },
-  { name: "Heating cable/Magnetic shielding", image: img8 },
-  { name: "Low frequency/electric potential", image: img9 },
+  { name: 'Ceramic', image: img6 },
+  { name: 'Thermal', image: img7 },
+  { name: 'Heating cable/Magnetic shielding', image: img8 },
+  { name: 'Low frequency/electric potential', image: img9 },
 ];
 
-const products = [
+// ⭐ RELATED PRODUCTS WITH LINKS
+const relatedProducts = [
   {
-    id: 2,
-    image: img10,
-    title: "MODEL NO.: 5000A",
-    subtitle: "HB GOLD MAT",
+    img: matMain,
+    name: 'HB Cervical Stones Heating Pillow',
+    path: '/ProductPage',
   },
   {
-    id: 3,
-    image: img11,
-    title: "MODEL NO.: 4000A",
-    subtitle: "HB SILVER MAT",
+    img: cushion,
+    name: 'HB Cushion Heating Mat',
+    path: '/CushionMat',
   },
   {
-    id: 4,
-    image: img12,
-    title: "MODEL NO.: 900A",
-    subtitle: "HB CUSHION MAT",
+    img: goldmat,
+    name: 'HB Gold Heating Mat',
+    path: '/Goldmat',
   },
   {
-    id: 5,
-    image: img13,
-    title: "MODEL NO.: 50A",
-    subtitle: "HB SLIMMING BELT",
+    img: graphenebelt,
+    name: 'HB Graphene Therapy Belt',
+    path: '/Graphenebelt',
+  },
+  {
+    img: silvermat,
+    name: 'HB Silver Heating Mat',
+    path: '/Silvermat',
+  },
+  {
+    img: slimmingbelt,
+    name: 'HB Slimming Therapy Belt',
+    path: '/SlimmingBelt',
+  },
+  {
+    img: tattum,
+    name: 'HB Tattum Sitting Therapy Device',
+    path: '/TattumSitting',
   },
 ];
 
@@ -62,7 +89,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.6, ease: 'easeOut' },
   },
 };
 
@@ -81,7 +108,7 @@ const scaleIn = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5, ease: 'easeOut' },
   },
 };
 
@@ -211,10 +238,10 @@ export default function CompanySection() {
         className="relative w-full py-32 px-6 overflow-hidden bg-fixed bg-center bg-cover"
         style={{
           backgroundImage: `url('${img5}')`,
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
+          backgroundAttachment: 'fixed',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
         }}
       >
         <div className="absolute inset-0 bg-black/70 z-0"></div>
@@ -252,8 +279,8 @@ export default function CompanySection() {
                 <div
                   className={`w-40 h-40 rounded-full overflow-hidden mb-4 shadow-lg transition-all duration-300 ${
                     activeCategory === idx
-                      ? "ring-4 ring-blue-600 scale-105"
-                      : "ring-2 ring-gray-300 hover:ring-gray-400"
+                      ? 'ring-4 ring-blue-600 scale-105'
+                      : 'ring-2 ring-gray-300 hover:ring-gray-400'
                   }`}
                 >
                   <img
@@ -265,8 +292,8 @@ export default function CompanySection() {
                 <p
                   className={`text-center text-sm md:text-base font-medium transition-colors duration-200 ${
                     activeCategory === idx
-                      ? "text-gray-800 font-semibold"
-                      : "text-gray-600 hover:text-gray-800"
+                      ? 'text-gray-800 font-semibold'
+                      : 'text-gray-600 hover:text-gray-800'
                   }`}
                 >
                   {cat.name}
@@ -293,37 +320,59 @@ export default function CompanySection() {
           <div className="mx-auto w-24 border-b-2 border-gray-800"></div>
         </motion.div>
 
-        {/* Product Grid */}
+        {/* ⭐ RELATED PRODUCTS WITH LINKS - FIXED */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={staggerContainer}
-          className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="max-w-7xl mx-auto"
         >
-          {products.map((product) => (
-            <motion.div
-              key={product.id}
-              variants={scaleIn}
-              className="bg-white rounded-none shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          <div className="px-6 mt-20 mb-20">
+            <h2 className="text-2xl font-semibold mb-10 text-center">
+              Related products
+            </h2>
+
+            <Swiper
+              modules={[Navigation, Autoplay]}
+              navigation
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              spaceBetween={30}
+              slidesPerView={4}
+              breakpoints={{
+                0: { slidesPerView: 1 },
+                640: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 },
+              }}
             >
-              <div className="w-full h-64 bg-gray-100 flex items-center justify-center overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-gray-400 text-sm font-medium mb-1">
-                  {product.title}
-                </h3>
-                <p className="text-gray-700 text-base font-medium">
-                  {product.subtitle}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+              {relatedProducts.map((item, i) => (
+                <SwiperSlide key={i}>
+                  <Link
+                    to={item.path}
+                    className="block text-center group cursor-pointer hover:scale-[1.02] transition-all duration-300"
+                  >
+                    <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl hover:bg-blue-50 border border-gray-100">
+                      <div className="w-full h-64 flex items-center justify-center mb-4 overflow-hidden rounded-lg">
+                        <img
+                          src={item.img}
+                          alt={item.name}
+                          className="w-48 h-48 object-contain group-hover:scale-110 transition-transform duration-300"
+                        />
+                      </div>
+                      <h3 className="font-bold text-gray-800 text-lg mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                        {item.name}
+                      </h3>
+                      <div className="text-yellow-400 text-xl mb-2">☆☆☆☆☆</div>
+                      <div className="text-sm text-gray-500">
+                        Click to view details
+                      </div>
+                    </div>
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </motion.div>
       </section>
     </>
